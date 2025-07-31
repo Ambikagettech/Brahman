@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saryuparin Brahman Samaj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+</head>
+<body class="min-h-screen">
+    <div class="flex flex-col min-h-screen">
+        <header class="samaj-theme shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 cultural-pattern opacity-10"></div>
+            <div class="container mx-auto px-4 py-6 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="relative">
+                            <img src="/images/image.png" alt="Saryuparin Brahman Samaj logo" class="w-16 h-16 mr-6 rounded-full border-4 border-white shadow-lg" />
+                            <div class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xs">🕉️</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-bold text-white drop-shadow-lg">
+                                <span class="text-2xl mr-2">🕉️</span>
+                                Saryuparin Brahman Samaj
+                            </h1>
+                            <p class="text-yellow-100 text-sm italic">Preserving Traditions • Building Community</p>
+                        </div>
+                    </div>
+                    <nav class="flex space-x-1 md:space-x-4">
+                        <a href="/" class="nav-button px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10"><i class="fas fa-home mr-2"></i>Home</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-800">
+                        <span class="text-3xl mr-3">🌸</span>
+                        Membership Registration
+                        <span class="text-3xl ml-3">🌸</span>
+                    </h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full mb-6"></div>
+                    <p class="text-lg text-gray-600 mb-8">Join our community to participate in spiritual events, access cultural resources, and connect with fellow Saryuparin Brahmans.</p>
+                </div>
+                <form action="/register" method="POST" class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow space-y-6">
+                    <h2 class="text-2xl font-bold text-center text-yellow-700">📝 Registration Form</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="name" placeholder="Full Name*" required class="form-input" />
+                        <input type="email" name="email" placeholder="Email*" required class="form-input" />
+                        <input type="text" name="phoneNo" placeholder="Phone Number*" required class="form-input" />
+                        <input type="text" name="gotra" placeholder="Gotra*" required class="form-input" />
+                        <input type="text" name="currentAddress" placeholder="Current Address*" required class="form-input" />
+                        <input type="text" name="parmanentAddress" placeholder="Permanent Address*" required class="form-input" />
+                        <input type="text" name="district" placeholder="District*" required class="form-input" />
+                        <input type="text" name="tehsil" placeholder="Tehsil*" required class="form-input" />
+                        <input type="text" name="bloodGroup" placeholder="Blood Group" class="form-input" />
+                        <input type="text" name="fatherName" placeholder="Father's Name*" required class="form-input" />
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow mt-6">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-3">👨‍👩‍👧‍👦 Add Family Members</h3>
+                        <div id="family-members-container" class="space-y-4"></div>
+                        <button type="button" onclick="addFamilyMember()" class="mt-4 px-4 py-2 bg-yellow-600 text-white rounded-lg">➕ Add Family Member</button>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-green-700 transition-all">Submit</button>
+                    </div>
+                </form>
+                <script>
+                    let memberIndex = 0;
+                    function addFamilyMember() {
+                        const container = document.getElementById("family-members-container");
+                        const html = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border p-4 rounded-md relative bg-white shadow-sm">
+                                <button type="button" onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 text-xl font-bold hover:text-red-700">&times;</button>
+                                <input type="text" name="familyMembers[ ${memberIndex} ][name]" placeholder="Full Name*" required class="form-input" />
+                                <input type="number" name="familyMembers[ ${memberIndex} ][age]" placeholder="Age*" required class="form-input" />
+                                <select name="familyMembers[ ${memberIndex} ][relation]" required class="form-input">
+                                    <option value="">Relation*</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Grandparent">Grandparent</option>
+                                </select>
+                                <select name="familyMembers[ ${memberIndex} ][bloodGroup]" class="form-input">
+                                    <option value="">Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                                <input type="text" name="familyMembers[ ${memberIndex} ][contactNo]" placeholder="Contact Number" class="form-input" />
+                            </div>
+                        `;
+                        container.insertAdjacentHTML("beforeend", html);
+                        memberIndex++;
+                    }
+                </script>
+                <style>
+                    .form-input {
+                        width: 100%;
+                        padding: 0.75rem 1rem;
+                        border: 1px solid #ccc;
+                        border-radius: 0.5rem;
+                    }
+                </style>
+            </div>
+        </main>
+        <footer class="samaj-dark text-white py-12 relative overflow-hidden">
+            <div class="absolute inset-0 cultural-pattern opacity-5"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl mr-3">🌸</span>
+                            <h3 class="text-2xl font-semibold">About Our Community</h3>
+                        </div>
+                        <p class="text-gray-200 leading-relaxed">Preserving and promoting the rich cultural heritage, spiritual traditions, and values of Saryuparin Brahman community since 1950. We are dedicated to fostering unity, education, and service to humanity.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <span class="text-2xl mr-3">🔗</span>
+                            Quick Links
+                        </h3>
+                        <ul class="space-y-3">
+                            <li><a href="/" class="hover:text-yellow-300 transition-colors flex items-center"><i class="fas fa-home mr-2"></i>Home</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <span class="text-2xl mr-3">🌐</span>
+                            Connect With Our Community
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center"><i class="fab fa-facebook text-blue-400 mr-3 text-xl"></i><a href="#" class="hover:text-yellow-300 transition-colors">Facebook Community</a></div>
+                            <div class="flex items-center"><i class="fab fa-twitter text-blue-300 mr-3 text-xl"></i><a href="#" class="hover:text-yellow-300 transition-colors">Twitter Updates</a></div>
+                            <div class="flex items-center"><i class="fab fa-instagram text-pink-400 mr-3 text-xl"></i><a href="#" class="hover:text-yellow-300 transition-colors">Instagram Stories</a></div>
+                            <div class="flex items-center"><i class="fab fa-whatsapp text-green-400 mr-3 text-xl"></i><a href="#" class="hover:text-yellow-300 transition-colors">WhatsApp Group</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-600 pt-8 text-centerz">
+                    <div class="flex justify-center items-center mb-4">
+                        <span class="text-2xl mr-3"></span>
+                        <p class="text-lg">&copy; <script>document.write(new Date().getFullYear())</script> Saryuparin Brahman Samaj. All rights reserved.</p>
+                        <span class="text-2xl ml-3"></span>
+                    </div>
+                    <p class="text-gray-300 text-sm">Preserving traditions • Building community • Serving humanity</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+
+
+

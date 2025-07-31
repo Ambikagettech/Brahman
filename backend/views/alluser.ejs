@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saryuparin Brahman Samaj</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/stylesheets/index.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-blue-700">Saryuparin Brahman Samaj</h1>
+    <a href="/" class="text-blue-600 hover:underline">Home</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="p-6">
+    <h2 class="text-3xl font-semibold mb-6 text-center">All Users</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% if (alluser.length > 0) { %>
+        <% alluser.forEach(function(user) { %>
+          <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+            <h3 class="text-xl font-bold mb-2"><%= user.name %></h3>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>Phone:</strong> <%= user.phoneNo %></p>
+            <p><strong>Gotra:</strong> <%= user.gotra %></p>
+            <p><strong>Current Address:</strong> <%= user.currentAddress %></p>
+            <p><strong>Permanent Address:</strong> <%= user.parmanentAddress %></p>
+            <p><strong>District:</strong> <%= user.district %></p>
+            <p><strong>Tehsil:</strong> <%= user.tehsil %></p>
+            <p><strong>Blood Group:</strong> <%= user.bloodGroup %></p>
+            <p><strong>Father's Name:</strong> <%= user.fatherName %></p>
+
+            <div class="mt-4">
+              <h4 class="font-semibold mb-2">Family Members:</h4>
+              <% if (user.familyMembers && user.familyMembers.length > 0) { %>
+                <table class="min-w-full text-sm border">
+                  <thead>
+                    <tr class="bg-gray-100">
+                      <th class="px-2 py-1 border">Name</th>
+                      <th class="px-2 py-1 border">Age</th>
+                      <th class="px-2 py-1 border">Relation</th>
+                      <th class="px-2 py-1 border">Blood Group</th>
+                      <th class="px-2 py-1 border">Contact No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% user.familyMembers.forEach(function(fm) { %>
+                      <tr>
+                        <td class="border px-2 py-1"><%= fm.name %></td>
+                        <td class="border px-2 py-1"><%= fm.age %></td>
+                        <td class="border px-2 py-1"><%= fm.relation %></td>
+                        <td class="border px-2 py-1"><%= fm.bloodGroup %></td>
+                        <td class="border px-2 py-1"><%= fm.contactNo %></td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              <% } else { %>
+                <p class="text-gray-500 italic">No family members</p>
+              <% } %>
+            </div>
+
+            <div class="mt-4 flex justify-between">
+              <a class="text-blue-600 hover:underline" href="/edit/<%= user._id %>">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <a class="text-red-600 hover:underline" href="/deleteUser/<%= user._id %>">
+                <i class="fas fa-trash-alt"></i> Delete
+              </a>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p class="text-yellow-600 text-center col-span-full">No users yet!!!</p>
+      <% } %>
+    </div>
+  </main>
+
+</body>
+</html>

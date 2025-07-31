@@ -1,0 +1,183 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+            background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 50%, #ffd4a3 100%);
+            color: #2c1810;
+            background-attachment: fixed;
+        }
+        
+        .samaj-theme {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #daa520 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .samaj-dark {
+            background: linear-gradient(135deg, #8b4513 0%, #654321 50%, #8e793e 100%);
+        }
+        
+        .active-nav {
+            border-bottom: 3px solid #fff;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .event-card {
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(145deg, #ffffff 0%, #faf8f3 100%);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+        
+        .form-input {
+            border: 2px solid #e5d3b3;
+            border-radius: 8px;
+            padding: 12px 16px;
+            width: 100%;
+            background: #fefefe;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            background: #fff;
+        }
+        
+        .cultural-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, #d4af37 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #d4af37 2px, transparent 2px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        .mandala-bg {
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        }
+        
+        .traditional-border {
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #d4af37, #b8860b, #daa520, #d4af37) 1;
+        }
+        
+        .floating-elements::before {
+            content: '🌸';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-elements::after {
+            content: '🪔';
+            position: absolute;
+            top: 40px;
+            right: 30px;
+            font-size: 1.5rem;
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mandala" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23d4af37" opacity="0.3"/><circle cx="10" cy="10" r="3" fill="none" stroke="%23d4af37" stroke-width="0.5" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23mandala)"/></svg>');
+            background-size: cover;
+            position: relative;
+        }
+        
+        .mission-card {
+            background: linear-gradient(145deg, #ffffff 0%, #faf8f3 100%);
+            border: 2px solid #e5d3b3;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+        }
+        
+        .cultural-icon {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-button:hover::before {
+            left: 100%;
+        }
+        
+        .form-section {
+            background: linear-gradient(145deg, #ffffff 0%, #faf8f3 100%);
+            border: 2px solid #e5d3b3;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        /* *{
+            background-color: black;
+        } */

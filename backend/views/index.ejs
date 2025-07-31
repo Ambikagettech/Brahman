@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saryuparin Brahman Samaj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+   </head>
+<body class="min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        function App() {
+            const [activeTab, setActiveTab] = useState('home');
+            const [events, setEvents] = useState([]);
+            const [formData, setFormData] = useState({
+                name: '',
+                email: '',
+                phone: '',
+                address: '',
+                permanentAddress: '',
+                district: '',
+                tehsil: '',
+                gotra: '',
+                fathersName: '',
+                bloodGroup: '',
+                profilePhoto: null,
+                message: ''
+            });
+            const [isSubmitted, setIsSubmitted] = useState(false);
+            const [memberForm, setMemberForm] = useState({
+                fullName: '',
+                relationship: '',
+                age: '',
+                bloodGroup: '',
+                contactNo: '',
+                photo: null,
+            });
+
+            const [familyMembers, setFamilyMembers] = useState([]);
+            const [showMemberForm, setShowMemberForm] = useState(false);
+
+            const handleMemberChange = (e) => {
+                const { name, value } = e.target;
+                setMemberForm(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+            };
+
+            const addFamilyMember = () => {
+                if (memberForm.fullName && memberForm.relationship && memberForm.age) {
+                    setFamilyMembers(prev => [...prev, memberForm]);
+                    setMemberForm({
+                        fullName: '',
+                        relationship: '',
+                        age: '',
+                        bloodGroup: '',
+                        contactNo: '',
+                        photo: null
+                    });
+                    // Keep the form open for adding more members
+                } else {
+                    alert('Please fill in Name, Relation, and Age fields');
+                }
+            };
+
+            const toggleMemberForm = () => {
+                setShowMemberForm(!showMemberForm);
+                if (!showMemberForm) {
+                    // Reset form when showing
+                    setMemberForm({
+                        fullName: '',
+                        relationship: '',
+                        age: '',
+                        bloodGroup: '',
+                        contactNo: '',
+                        photo: null
+                    });
+                }
+            };
+            
+            // Mock data for events
+            useEffect(() => {
+                const mockEvents = [
+                    {
+                        id: 1,
+                        title: 'Annual General Meeting',
+                        date: '2023-12-15',
+                        description: 'Join us for our yearly gathering to discuss community matters and celebrate our heritage.',
+                        image: 'image1.jpg'
+                    },
+                    {
+                        id: 2,
+                        title: 'Cultural Festival',
+                        date: '2024-01-20',
+                        description: 'Experience the rich traditions of Saryuparin Brahman community through music, dance, and food.',
+                        image: 'image2.jpg'
+                    },
+                    {
+                        id: 3,
+                        title: 'Youth Workshop',
+                        date: '2024-02-10',
+                        description: 'Educational session for young members to learn about our customs and values.',
+                        image: 'image3.jpg'
+                    }
+                ];
+                setEvents(mockEvents);
+            }, []);
+            
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+            };
+            
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                console.log('Form submitted:', formData);
+                console.log('Family members:', familyMembers);
+                // Here you would typically send data to backend
+                setIsSubmitted(true);
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    address: '',
+                    permanentAddress: '',
+                    district: '',
+                    tehsil: '',
+                    gotra: '',
+                    fathersName: '',
+                    bloodGroup: '',
+                    profilePhoto: null,
+                    message: ''
+                });
+                setFamilyMembers([]);
+                setTimeout(() => setIsSubmitted(false), 5000);
+            };
+            
+            const renderContent = () => {
+                switch(activeTab) {
+                    case 'home':
+                        return <Home />;
+                    case 'events':
+                        return <RecentEvents events={events} />;
+                    case 'contact':
+                        return <ContactUs 
+                            formData={formData} 
+                            onChange={handleInputChange} 
+                            onSubmit={handleSubmit}
+                            isSubmitted={isSubmitted}
+                        />;
+                    default:
+                        return <Home />;
+                }
+            };
+            
+            return (
+                <div className="flex flex-col min-h-screen">
+                    {/* Header */}
+                    <header className="samaj-theme shadow-lg relative overflow-hidden">
+                        <div className="absolute inset-0 cultural-pattern opacity-10"></div>
+                        <div className="container mx-auto px-4 py-6 relative z-10">
+                            <div className="flex flex-col md:flex-row justify-between items-center">
+                                <div className="flex items-center mb-4 md:mb-0">
+                                    <div className="relative">
+                                    <img 
+                                        src="/images/image.png" 
+                                        alt="Saryuparin Brahman Samaj logo with traditional motifs" 
+                                            className="w-16 h-16 mr-6 rounded-full border-4 border-white shadow-lg"
+                                    />
+                                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                                            <span className="text-white text-xs">🕉️</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h1 className="text-3xl font-bold text-white drop-shadow-lg">
+                                            <span className="text-2xl mr-2">🕉️</span>
+                                            Saryuparin Brahman Samaj
+                                        </h1>
+                                        <p className="text-yellow-100 text-sm italic">Preserving Traditions • Building Community</p>
+                                    </div>
+                                </div>
+                                <nav className="flex space-x-1 md:space-x-4">
+                                    <button
+                                        onClick={() => setActiveTab('home')}
+                                        className={`nav-button px-4 py-3 rounded-lg font-medium transition-all duration-300 ${activeTab === 'home' ? 'active-nav bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'}`}
+                                    >
+                                        <i className="fas fa-home mr-2"></i>Home
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab('events')}
+                                        className={`nav-button px-4 py-3 rounded-lg font-medium transition-all duration-300 ${activeTab === 'events' ? 'active-nav bg-white bg-opacity-20' : 'hover:bg-white hover:bg-opacity-10'}`}
+                                    >
+                                        <i className="fas fa-calendar-alt mr-2"></i>Events
+                                    </button>
+                                    <a
+                                        href="/form"
+                                        className={`nav-button px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10`}
+                                    >
+                                        <i className="fas fa-user-plus mr-2"></i>Register
+                                    </a>
+                                    
+                                    <a
+                                        href="/login"
+                                        className={`nav-button px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10`}
+                                    >
+                                        <i className="fas fa-sign-in-alt mr-2"></i>Login
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    {/* Main Content */}
+                    <main className="flex-grow container mx-auto px-4 py-8">
+                        {renderContent()}
+                    </main>
+                    
+                    {/* Footer */}
+                    <footer className="samaj-dark text-white py-12 relative overflow-hidden">
+                        <div className="absolute inset-0 cultural-pattern opacity-5"></div>
+                        <div className="container mx-auto px-4 relative z-10">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                                <div>
+                                    <div className="flex items-center mb-4">
+                                        <span className="text-3xl mr-3">🌸</span>
+                                        <h3 className="text-2xl font-semibold">About Our Community</h3>
+                                    </div>
+                                    <p className="text-gray-200 leading-relaxed">Preserving and promoting the rich cultural heritage, spiritual traditions, and values of Saryuparin Brahman community since 1950. We are dedicated to fostering unity, education, and service to humanity.</p>
+                                    <div className="mt-4 flex space-x-2">
+                                        <span className="text-yellow-300"></span>
+                                        <span className="text-yellow-300"></span>
+                                        <span className="text-yellow-300"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-semibold mb-6 flex items-center">
+                                        <span className="text-2xl mr-3">🔗</span>
+                                        Quick Links
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        <li>
+                                            <button onClick={() => setActiveTab('home')} className="hover:text-yellow-300 transition-colors flex items-center">
+                                                <i className="fas fa-home mr-2"></i>Home
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => setActiveTab('events')} className="hover:text-yellow-300 transition-colors flex items-center">
+                                                <i className="fas fa-calendar-alt mr-2"></i>Events
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => setActiveTab('register')} className="hover:text-yellow-300 transition-colors flex items-center">
+                                                <i className="fas fa-user-plus mr-2"></i>Membership
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => setActiveTab('contact')} className="hover:text-yellow-300 transition-colors flex items-center">
+                                                <i className="fas fa-envelope mr-2"></i>Contact
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-semibold mb-6 flex items-center">
+                                        <span className="text-2xl mr-3">🌐</span>
+                                        Connect With Our Community
+                                    </h3>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center">
+                                            <i className="fab fa-facebook text-blue-400 mr-3 text-xl"></i>
+                                            <a href="#" className="hover:text-yellow-300 transition-colors">Facebook Community</a>
+                                    </div>
+                                        <div className="flex items-center">
+                                            <i className="fab fa-twitter text-blue-300 mr-3 text-xl"></i>
+                                            <a href="#" className="hover:text-yellow-300 transition-colors">Twitter Updates</a>
+                                </div>
+                                        <div className="flex items-center">
+                                            <i className="fab fa-instagram text-pink-400 mr-3 text-xl"></i>
+                                            <a href="#" className="hover:text-yellow-300 transition-colors">Instagram Stories</a>
+                            </div>
+                                        <div className="flex items-center">
+                                            <i className="fab fa-whatsapp text-green-400 mr-3 text-xl"></i>
+                                            <a href="#" className="hover:text-yellow-300 transition-colors">WhatsApp Group</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border-t border-gray-600 pt-8 text-center">
+                                <div className="flex justify-center items-center mb-4">
+                                    <span className="text-2xl mr-3"></span>
+                                    <p className="text-lg">&copy; {new Date().getFullYear()} Saryuparin Brahman Samaj. All rights reserved.</p>
+                                    <span className="text-2xl ml-3"></span>
+                                </div>
+                                <p className="text-gray-300 text-sm">Preserving traditions • Building community • Serving humanity</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+        
+        function Home() {
+            return (
+                <div className="relative justify-center">
+                    <section className="mb-12 relative hero-section rounded-2xl overflow-hidden shadow-2xl">
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-200 to-transparent p-8">
+    <div className="bg-orange-300 bg-opacity-80 rounded-xl p-6">
+        <div className="flex items-center mb-4">
+            <h2 className="text-4xl font-bold text-white mb-2">Welcome to Saryuparin Samaj</h2>
+        </div>
+        <p className="text-xl text-yellow-100 mb-4">Preserving ancient traditions, fostering unity, and building the future together.</p>
+        <div className="flex space-x-4">
+            <span className="text-yellow-200"></span>
+            <span className="text-yellow-200"></span>
+            <span className="text-yellow-200"></span>
+        </div>
+    </div>
+</div>
+                        <img 
+                            src="https://www.shutterstock.com/image-illustration/orange-background-autumn-fall-halloween-600nw-2173336063.jpg"
+                            alt="Traditional Brahmin family gathered for a ceremony with diyas and flowers"
+                            className="w-full h-96 object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-700 to-transparent p-8 justify-center">
+    <div className="bg-orange-700 bg-opacity-80 rounded-xl p-6">
+        <div className="flex items-center mb-4">
+            <h2 className="text-4xl font-bold text-white mb-2">Welcome to Saryuparin Samaj</h2>
+        </div>
+        <p className="text-xl text-yellow-100 mb-4">Preserving ancient traditions, fostering unity, and building the future together.</p>
+        <div className="flex space-x-4">
+            <span className="text-yellow-400"></span>
+            <span className="text-yellow-400"></span>
+            <span className="text-yellow-400"></span>
+        </div>
+    </div>
+</div>
+                    </section>
+                    
+                    <section className="mb-12 relative floating-elements">
+                        <div className="text-center mb-8">
+                            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+                                <span className="text-4xl mr-4"></span>
+                                Our Mission
+                                <span className="text-4xl ml-4"></span>
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full"></div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="mission-card p-8 rounded-xl shadow-lg">
+                                <div className="text-center mb-6">
+                                    <div className="cultural-icon mb-4">🏛️</div>
+                                    <h3 className="text-2xl font-semibold mb-3 text-gray-800">Preserve Heritage</h3>
+                            </div>
+                                <p className="text-gray-700 leading-relaxed">Maintain the rich cultural traditions, rituals, and spiritual practices of the Saryuparin Brahman community for future generations.</p>
+                                <div className="mt-4 flex justify-center">
+                                    <span className="text-yellow-500 text-2xl">🪔</span>
+                            </div>
+                            </div>
+                            <div className="mission-card p-8 rounded-xl shadow-lg">
+                                <div className="text-center mb-6">
+                                    <div className="cultural-icon mb-4">🤝</div>
+                                    <h3 className="text-2xl font-semibold mb-3 text-gray-800">Build Community</h3>
+                                </div>
+                                <p className="text-gray-700 leading-relaxed">Create strong spiritual connections among community members through regular gatherings, cultural events, and charitable activities.</p>
+                                <div className="mt-4 flex justify-center">
+                                    <span className="text-yellow-500 text-2xl">🌸</span>
+                                </div>
+                            </div>
+                            <div className="mission-card p-8 rounded-xl shadow-lg">
+                                <div className="text-center mb-6">
+                                    <div className="cultural-icon mb-4">📚</div>
+                                    <h3 className="text-2xl font-semibold mb-3 text-gray-800">Educate Youth</h3>
+                                </div>
+                                <p className="text-gray-700 leading-relaxed">Teach younger generations about our scriptures, traditional values, and the spiritual way of life through dedicated programs.</p>
+                                <div className="mt-4 flex justify-center">
+                                    <span className="text-yellow-500 text-2xl">📿</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section className="mb-8 relative">
+                        <div className="text-center mb-8">
+                            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+                                <span className="text-3xl mr-3"></span>
+                                Upcoming Events
+                                <span className="text-3xl ml-3"></span>
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full mb-8"></div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-8 rounded-xl shadow-lg border-2 border-yellow-200">
+                                <div className="flex items-center mb-4">
+                                    <span className="text-3xl mr-4"></span>
+                                    <h3 className="text-2xl font-semibold text-gray-800">Monthly Satsang</h3>
+                                </div>
+                                <p className="text-gray-600 mb-4 flex items-center">
+                                    <i className="fas fa-calendar mr-2 text-yellow-600"></i>
+                                    Every first Sunday of the month
+                                </p>
+                                <p className="text-gray-700 mb-6">Join us for spiritual discourse, bhajans, and community prayers at our community hall.</p>
+                                <button className="submit-btn text-white py-3 px-6 rounded-lg font-medium">
+                                    <i className="fas fa-heart mr-2"></i>Join Satsang
+                                </button>
+                            </div>
+                            <div className="bg-gradient-to-br from-red-50 to-pink-50 p-8 rounded-xl shadow-lg border-2 border-red-200">
+                                <div className="flex items-center mb-4">
+                                    <span className="text-3xl mr-4"></span>
+                                    <h3 className="text-2xl font-semibold text-gray-800">Charity Drive</h3>
+                                </div>
+                                <p className="text-gray-600 mb-4 flex items-center">
+                                    <i className="fas fa-calendar mr-2 text-red-600"></i>
+                                    December 25, 2023
+                                </p>
+                                <p className="text-gray-700 mb-6">Annual food and clothing donation drive for the underprivileged - serving humanity with love.</p>
+                                <button className="bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all">
+                                    <i className="fas fa-hands-helping mr-2"></i>Participate
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+        
+        function RecentEvents({ events }) {
+            return (
+                <div className="relative">
+                                            <div className="text-center mb-8">
+                            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+                                <span className="text-3xl mr-3"></span>
+                                Recent Events
+                                <span className="text-3xl ml-3"></span>
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full mb-8"></div>
+                        </div>
+                    
+                    {events.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {events.map(event => (
+                                <div key={event.id} className="event-card rounded-xl overflow-hidden shadow-lg">
+                                    <div className="relative">
+                                    <img 
+                                        src={`/images/${event.image}`}
+                                        alt={event.title}
+                                        className="w-full h-64 object-cover"
+                                        onError={(e) => {
+                                                e.target.src = 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                                                e.target.alt = 'Traditional ceremony';
+                                        }}
+                                    />
+                                        <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                            <i className="fas fa-calendar mr-1"></i>
+                                            {new Date(event.date).toLocaleDateString()}
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <div className="flex items-center mb-3">
+                                            <span className="text-2xl mr-3">🌸</span>
+                                            <h3 className="text-xl font-semibold text-gray-800">{event.title}</h3>
+                                        </div>
+                                        <p className="text-gray-700 mb-4 leading-relaxed">{event.description}</p>
+                                        <button className="submit-btn text-white py-2 px-4 rounded-lg font-medium w-full">
+                                            <i className="fas fa-eye mr-2"></i>View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-12">
+                            <div className="text-6xl mb-4">🌸</div>
+                            <p className="text-gray-500 text-lg">No events scheduled at the moment. Please check back later for upcoming gatherings.</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+        
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
+
+
